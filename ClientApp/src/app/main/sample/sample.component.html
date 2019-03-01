@@ -1,0 +1,115 @@
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent"
+             fxLayout="column" fxLayoutAlign="center center"
+             fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0"
+                 fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    shopping_basket
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Products
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper mx-32 mx-md-0">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Search for a product">
+                </div>
+            </div>
+            <!-- / SEARCH -->
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button
+                    [routerLink]="'/apps/e-commerce/products/new'"
+                    class="add-product-button fuse-white mt-24 mt-md-0">
+                <span>ADD NEW PRODUCT</span>
+            </button>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+                <div mat-dialog-content class="p-24 m-0" fxLayout="row" fxLayoutAlign="start center" fusePerfectScrollbar>
+                        
+                          <!-- <perfect-scrollbar style="max-height: 350px;"> -->
+                            <div class="form-container">
+                              <mat-form-field appearance="outline" floatLabel="auto" class="w-100-p">
+                                  <mat-label>Tipe Menu</mat-label>
+                                  <mat-select placeholder="Tipe Menu" formControlName="type" (change)='onTypeChange()' required>
+                                    <mat-option *ngFor="let refType of refTypes" [value]="refType.value">
+                                      {{ refType.viewValue }}
+                                    </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="formGroup.controls['type'].errors">
+                                    <div [hidden]="!formGroup.controls['type'].errors.required">Tipe menu wajib diisi!</div>
+                                  </mat-error>
+                              </mat-form-field>
+                              
+                              <mat-form-field appearance="outline" floatLabel="auto" class="w-100-p" hintLabel="Max 50 karakter">
+                                <mat-label>Menu Name</mat-label>
+                                <input matInput #nameInput formControlName="name" maxlength="50" placeholder="Menu Name" required />
+                                <mat-hint align="end">{{nameInput.value?.length || 0}}/50</mat-hint>
+                                <mat-error *ngIf="formGroup.controls['name'].errors">
+                                  <div [hidden]="!formGroup.controls['name'].errors.required">Nama menu wajib diisi!</div>
+                                </mat-error>
+                              </mat-form-field>
+                    
+                              <mat-form-field appearance="outline" floatLabel="auto" class="w-100-p" hintLabel="Max 30 karakter" *ngIf="!isGroupType && !isCollapseType">
+                                <mat-label>Menu Link</mat-label>
+                                <input matInput #linkInput formControlName="link" maxlength="30" placeholder="Menu Link" />
+                                <mat-hint align="end">{{linkInput.value?.length || 0}}/30</mat-hint>
+                              </mat-form-field>
+                    
+                              <mat-form-field appearance="outline" floatLabel="auto" class="w-100-p" hintLabel="Max 20 karakter" *ngIf="!isGroupType">
+                                <mat-label>Menu Icon</mat-label>
+                                <input matInput #iconInput formControlName="icon" maxlength="20" placeholder="Menu Icon" />
+                                <mat-hint align="end">{{iconInput.value?.length || 0}}/20</mat-hint>
+                              </mat-form-field>
+                    
+                              <mat-form-field appearance="outline" floatLabel="auto" class="w-100-p">
+                                  <mat-label>Menu Order</mat-label>
+                                <input matInput #orderInput formControlName="order" type="number" placeholder="Menu Order" />
+                              </mat-form-field>
+                    
+                              <section>
+                                <mat-checkbox formControlName="exact">
+                                  Exact
+                                </mat-checkbox>
+                              </section>
+                            </div>
+                    
+                            <div>
+                              <label>Roles Selection</label>
+                              <mat-divider></mat-divider>
+                              <mat-selection-list dense #roles>
+                                <mat-list-option *ngFor="let role of allRoles" [selected]="role.IsChecked" (click)="selectChange(roles)" [value]="role.RoleName">
+                                  {{role.RoleName}}
+                                </mat-list-option>
+                              </mat-selection-list>
+                            </div>
+                          <!-- </perfect-scrollbar> -->
+                      </div>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>
