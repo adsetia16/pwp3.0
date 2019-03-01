@@ -14,10 +14,8 @@ import { RoleModule } from './role/role.module';
         VerticalLayout1Module,
         VerticalLayout2Module,
         VerticalLayout3Module,
-        
+
         HorizontalLayout1Module,
-        UserModule,
-        RoleModule,
         MatSnackBarModule
     ],
     exports: [
