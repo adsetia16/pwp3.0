@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "simaru": {
+    "pwp3.0": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -77,18 +77,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "simaru:build"
+            "browserTarget": "pwp3.0:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "simaru:build:production"
+              "browserTarget": "pwp3.0:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "simaru:build"
+            "browserTarget": "pwp3.0:build"
           }
         },
         "test": {
@@ -122,7 +122,7 @@
         }
       }
     },
-    "simaru-e2e": {
+    "pwp3.0-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -130,7 +130,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "simaru:serve"
+            "devServerTarget": "pwp3.0:serve"
           }
         },
         "lint": {
@@ -147,7 +147,7 @@
       }
     }
   },
-  "defaultProject": "simaru",
+  "defaultProject": "pwp3.0",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

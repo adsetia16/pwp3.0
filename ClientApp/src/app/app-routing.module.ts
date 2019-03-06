@@ -23,7 +23,11 @@ const routes: Routes = [
   {
     path: 'role',
     loadChildren: './layout/role/role.module#RoleModule'
-  }
+  },
+  {
+    path: 'generator-crud',
+    loadChildren: './layout/generator-crud/generator-crud.module#GeneratorCrudModule'
+  },
 ];
 
 @NgModule({
