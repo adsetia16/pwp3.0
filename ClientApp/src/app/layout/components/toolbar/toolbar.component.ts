@@ -106,7 +106,14 @@ export class ToolbarComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.userInfo = JSON.parse(sessionStorage.getItem('CurrentUser'));
+        //this.userInfo = JSON.parse(sessionStorage.getItem('CurrentUser'));
+      this.userService.getUserInfo().subscribe(result => {
+        this.userInfo = result;
+        sessionStorage.setItem('CurrentUser', JSON.stringify(result))
+
+        this.authService.setUser(result);
+      });
+
 
         // Subscribe to the config changes
         this._fuseConfigService.config

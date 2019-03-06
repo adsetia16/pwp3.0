@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
@@ -17,7 +17,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
-    <Version>2.2.0</Version>
+    <Version>3.0.0</Version>
     <Copyright>Pusintek, Kemenkeu</Copyright>
     <NoWin32Manifest>true</NoWin32Manifest>
     <Authors>Pusintek</Authors>
