@@ -1,73 +1,108 @@
 <div id="content-layout" class="page-layout carded fullwidth inner-scroll">
-    <div class="top-bg accent"></div>
-    <div class="center">
+  <div class="top-bg accent"></div>
+  <div class="center">
 
-        <!-- HEADER -->
-        <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
-            fxLayoutAlign.gt-sm="space-between center">
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between center">
 
-            <!-- APP TITLE -->
-            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                    face
-                </mat-icon>
-                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                    List User
-                </span>
-            </div>
-            <!-- / APP TITLE -->
-        </div>
-        <!-- / HEADER -->
-
-        <!-- CONTENT CARD -->
-        <div class="content-card">
-            <div class="toolbar px-24 py-8">
-
-                <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
-
-                    <button mat-mini-fab (click)="onAddNewUserClick()" matTooltip="Add More User">
-                        <mat-icon>add</mat-icon>
-                    </button>
-
-                    <div *ngIf="selected.length > 0" class="toolbar-separator"></div>
-
-                    <button *ngIf="selected.length > 0" matTooltip="Assign Role" color="primary" mat-icon-button
-                        (click)="onAssignRoleClick()">
-                        <mat-icon>playlist_add_check</mat-icon>
-                    </button>
-                </div>
-
-                <div class="right" fxLayout="row" fxLayoutAlign="end center">
-                    <div class="toolbar-separator"></div>
-                    <wing-search (search)="searchUser($event)" [clearText]="true" [showSearch]="showSearch" (click)="onClickSearch()"></wing-search>
-                </div>
-            </div>
-
-            <div class="content">
-                <ngx-datatable #table 
-                    class="material" 
-                    [rows]="users" 
-                    [columns]="columns" 
-                    [columnMode]="'force'" 
-                    [rowHeight]="'auto'" 
-                    [selected]="selected"
-                    (select)='onSelect($event)'
-                    [selectionType]="'single'" 
-                    [selectCheck]="singleSelectCheck" 
-                    [headerHeight]="50" 
-                    [footerHeight]="50"
-                    [limit]="10" matSort
-                    [@animateStagger]="{value:'50'}"
-                    fusePerfectScrollbar>
-                    <ng-template #gravatar let-row="row" let-value="value">
-                        <div class="gravatar">
-                            <img src="{{value}}" alt="gravatar">
-                        </div>
-                    </ng-template>
-                </ngx-datatable>
-            </div>
-
-        </div>
-        <!-- / CONTENT CARD -->
+      <!-- APP TITLE -->
+      <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          face
+        </mat-icon>
+        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          List User
+        </span>
+      </div>
+      <!-- / APP TITLE -->
     </div>
+    <!-- / HEADER -->
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+      <div class="toolbar px-24 py-8">
+
+        <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+
+          <button mat-mini-fab (click)="onAddNewUserClick()" matTooltip="Add More User">
+            <mat-icon>add</mat-icon>
+          </button>
+
+          <!--<div *ngIf="selected.length > 0" class="toolbar-separator"></div>
+
+          <button *ngIf="selected.length > 0" matTooltip="Assign Role" color="primary" mat-icon-button
+                  (click)="onAssignRoleClick()">
+            <mat-icon>playlist_add_check</mat-icon>
+          </button>-->
+        </div>
+
+        <div class="right" fxLayout="row" fxLayoutAlign="end center">
+          <div class="toolbar-separator"></div>
+          <wing-search (keyup)="applyFilter($event.target.value)" [clearText]="true" [showSearch]="showSearch"></wing-search>
+        </div>
+      </div>
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="Gravatar">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Gravatar </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="gravatar">
+              <img src="{{element.Gravatar}}" alt="gravatar">
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="Nama">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nama </th>
+          <td mat-cell *matCellDef="let element"> {{element.Nama}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Nip">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nip </th>
+          <td mat-cell *matCellDef="let element"> {{element.Nip}} </td>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="UserRoles">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> UserRoles </th>
+          <td mat-cell *matCellDef="let element"> {{element.UserRoles }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelect(row)"
+             [ngClass]="{'selected' : row == selected}"
+             matRipple [@animate]="{value:'*',params:{y:'100%'}}"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
+      <!--<div class="content">
+          <ngx-datatable #table
+              class="material"
+              [rows]="users"
+              [columns]="columns"
+              [columnMode]="'force'"
+              [rowHeight]="'auto'"
+              [selected]="selected"
+              (select)='onSelect($event)'
+              [selectionType]="'single'"
+              [selectCheck]="singleSelectCheck"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [limit]="10" matSort
+              [@animateStagger]="{value:'50'}"
+              fusePerfectScrollbar>
+              <ng-template #gravatar let-row="row" let-value="value">
+                  <div class="gravatar">
+                      <img src="{{value}}" alt="gravatar">
+                  </div>
+              </ng-template>
+          </ngx-datatable>
+      </div>-->
+
+    </div>
+    <!-- / CONTENT CARD -->
+  </div>
 </div>
