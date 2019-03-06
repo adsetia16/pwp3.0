@@ -65,14 +65,6 @@ export class RoleListComponent implements OnInit {
     }
   }
 
-  //onDeleteClick() {
-  //  this.checkSelected(true);
-  //}
-
-  //onEditClick() {
-  //  this.checkSelected(false);
-  //}
-
   onDeleteClick() {
     let role = this.role;
     //material confirm
@@ -84,6 +76,7 @@ export class RoleListComponent implements OnInit {
             result => {
               //this.allRoles.splice(this.allRoles.indexOf(role), 1);
               this.selected = -1;// langsung create data untuk update isi tabel
+              this.prepareTableContent();
               this.snackbarService.showSnackBar("success", "Hapus role berhasil!");
             },
             error => {
@@ -120,6 +113,7 @@ export class RoleListComponent implements OnInit {
           });
           */
           this.selected = -1;
+          this.prepareTableContent();
           this.snackbarService.showSnackBar();
         });
       }
@@ -155,6 +149,7 @@ export class RoleListComponent implements OnInit {
             });
             */
             this.prepareTableContent(); // langsung create data supaya isi tabel terupdate
+            this.selected = -1;
             this.snackbarService.showSnackBar();
           }
         });

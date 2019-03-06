@@ -59,31 +59,6 @@
             (click)="highlight(i, row)"></tr>
       </table>
       <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
-      <!--<div class="content">
-      <ngx-datatable #table class="material"
-                  [rows]="allRoles"
-                  [columnMode]="'force'"
-                  [rowHeight]="'40'"
-                  [selected]="selected"
-                  [selectCheck]="singleSelectCheck"
-                  [selectionType]="'single'"
-                  (select)='onSelect($event)'
-                  [headerHeight]="50"
-                  [footerHeight]="50"
-                  [limit]="10"
-                  matSort
-                  [@animateStagger]="{value:'50'}"
-                  fusePerfectScrollbar>
-      <ngx-datatable-column name="Role ID" prop="RoleId"></ngx-datatable-column>
-      <ngx-datatable-column name="Role Name">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row.RoleName}}
-        </ng-template>
-      </ngx-datatable-column>
-    </ngx-datatable>
-  </div>-->
-
     </div>
-    <!-- / CONTENT CARD -->
   </div>
 </div>

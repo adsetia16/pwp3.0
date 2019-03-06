@@ -78,7 +78,8 @@ export class UserListComponent implements OnInit {
       if (result != null) {
         this.userService.postNewUser(result).subscribe(result => {
           this.userService.getUsers().subscribe(result => {
-            //this.prepareTableContent();
+            this.selected = -1;
+            this.prepareTableContent();
             this.snackbarService.showSnackBar("success", "Tambah User berhasil!");
           });
         });
@@ -104,6 +105,7 @@ export class UserListComponent implements OnInit {
             return x;
           });
           this.selected = -1;
+          this.prepareTableContent();
           this.snackbarService.showSnackBar();
         });
       }
