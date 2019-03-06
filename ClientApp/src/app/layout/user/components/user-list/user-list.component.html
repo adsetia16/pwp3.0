@@ -43,7 +43,6 @@
       </div>
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-        <!-- ID Column -->
         <ng-container matColumnDef="Gravatar">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Gravatar </th>
           <td mat-cell *matCellDef="let element">
@@ -53,19 +52,16 @@
           </td>
         </ng-container>
 
-        <!-- Progress Column -->
         <ng-container matColumnDef="Nama">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Nama </th>
           <td mat-cell *matCellDef="let element"> {{element.Nama}} </td>
         </ng-container>
 
-        <!-- Name Column -->
         <ng-container matColumnDef="Nip">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Nip </th>
           <td mat-cell *matCellDef="let element"> {{element.Nip}} </td>
         </ng-container>
 
-        <!-- Color Column -->
         <ng-container matColumnDef="UserRoles">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> UserRoles </th>
           <td mat-cell *matCellDef="let element"> {{element.UserRoles }} </td>
@@ -77,32 +73,6 @@
       (click)="highlight(i, row)"></tr>
       </table>
       <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
-      <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
-      <!--<div class="content">
-          <ngx-datatable #table
-              class="material"
-              [rows]="users"
-              [columns]="columns"
-              [columnMode]="'force'"
-              [rowHeight]="'auto'"
-              [selected]="selected"
-              (select)='onSelect($event)'
-              [selectionType]="'single'"
-              [selectCheck]="singleSelectCheck"
-              [headerHeight]="50"
-              [footerHeight]="50"
-              [limit]="10" matSort
-              [@animateStagger]="{value:'50'}"
-              fusePerfectScrollbar>
-              <ng-template #gravatar let-row="row" let-value="value">
-                  <div class="gravatar">
-                      <img src="{{value}}" alt="gravatar">
-                  </div>
-              </ng-template>
-          </ngx-datatable>
-      </div>-->
-
     </div>
-    <!-- / CONTENT CARD -->
   </div>
 </div>

@@ -7,3 +7,15 @@
 .pi{
     font-family: 'primeicons' !important;
 }
+
+table {
+  width: 100%;
+}
+
+tr.example-element-row:hover {
+  background: #f5f5f5;
+}
+
+table .example-element-row.active td {
+  background: #039be5;
+}

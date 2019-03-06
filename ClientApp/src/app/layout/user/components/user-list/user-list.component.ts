@@ -22,9 +22,8 @@ import { PuiSnackbarService } from 'app/shared/pusintek-ui/components/pui-snackb
 export class UserListComponent implements OnInit {
 
   users: User[];
-  temp: User[];
   selected: number
-  selectedData: any[] = []
+  user: User;
   displayedColumns: string[] = ['Gravatar', 'Nama', 'Nip', 'UserRoles'];
   dataSource: any
 
@@ -60,21 +59,14 @@ export class UserListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  //searchUser(event: any) {
-  //  if(event.type == "click") return true
-  //  const val = event.target.value.toLowerCase();
-
-  //  const temp = this.temp.filter(function (d) {
-  //    return (
-  //      d.Nama.toLowerCase().indexOf(val) !== -1 ||
-  //      d.Nip.toLowerCase().indexOf(val) !== -1 ||
-  //      !val
-  //    );
-  //  });
-
-  //  this.users = temp;
-  //  this.table.offset = 0;
-  //}
+  highlight(index, row) {
+    if (this.selected != index) {
+      this.selected = index;
+      this.user = row;
+    } else {
+      this.selected = -1;
+    }
+  }
 
   onAddNewUserClick() {
     let dialogRef = this.dialog.open(UserFormComponent, {
@@ -94,19 +86,10 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  highlight(index, row) {
-    if (this.selected != index) {
-      this.selected = index;
-      this.selectedData = row;
-    } else {
-      this.selected = -1;
-    }
-  }
-
   onAssignRoleClick() {
     let dialogRef = this.dialog.open(UserDetailComponent, {
       data: {
-        user: this.selectedData
+        user: this.user
       }
     });
 

@@ -8,6 +8,9 @@ import {
   MatSnackBarModule,
   MatCheckboxModule,
   MatToolbarModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
 
 } from "@angular/material";
 import { RoleDetailComponent } from "./components/role-detail/role-detail.component";
@@ -31,7 +34,10 @@ import { FuseWidgetModule, FuseSearchBarModule } from "@fuse/components";
     RoleRoutingModule,
     FuseSearchBarModule,
     FuseWidgetModule,
-    WingModule
+    WingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   declarations: [
     RoleListComponent,
