@@ -23,7 +23,8 @@ export class UserListComponent implements OnInit {
 
   users: User[];
   temp: User[];
-  selectedUser: string;
+  selected: any[] = []
+  //selectedUser: string;
   displayedColumns: string[] = ['Gravatar', 'Nama', 'Nip', 'UserRoles'];
   dataSource: any
 
@@ -104,6 +105,9 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  highlight(row) {
+    return this.selected.indexOf(row) === -1;
+  }
   //onAssignRoleClick() {
   //  let dialogRef = this.dialog.open(UserDetailComponent, {
   //    data: {
