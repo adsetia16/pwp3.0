@@ -28,12 +28,12 @@
             <mat-icon>add</mat-icon>
           </button>
 
-          <!--<div *ngIf="selected.length > 0" class="toolbar-separator"></div>
+          <div *ngIf="selected >= 0" class="toolbar-separator"></div>
 
-          <button *ngIf="selected.length > 0" matTooltip="Assign Role" color="primary" mat-icon-button
+          <button *ngIf="selected >= 0" matTooltip="Assign Role" color="primary" mat-icon-button
                   (click)="onAssignRoleClick()">
             <mat-icon>playlist_add_check</mat-icon>
-          </button>-->
+          </button>
         </div>
 
         <div class="right" fxLayout="row" fxLayoutAlign="end center">
@@ -72,9 +72,11 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{ 'example-element-row': selected.indexOf(row) == -1 }" (click)="highlight(row)"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" class="example-element-row"
+      [class.active]="i == selected"
+      (click)="highlight(i, row)"></tr>
       </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
       <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
       <!--<div class="content">
           <ngx-datatable #table

@@ -26,7 +26,7 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
     this.allRoles = [];
     // get all
-    let userRoles = this.data.roles;
+    let userRoles = this.data.user.UserRoles;
     this.allRoles = this.compareRoles(userRoles, this.authService.allRoles);
   }
 

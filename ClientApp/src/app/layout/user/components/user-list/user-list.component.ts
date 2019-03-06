@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { UserFormComponent } from '../user-form/user-form.component';
-import { PuiSnackbarService } from 'app/shared/pusintek-ui/components/pui-snackbar/pui-snackbar.service';
 import { Pagination } from 'app/shared/models/pagination';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
+import { PuiSnackbarService } from 'app/shared/pusintek-ui/components/pui-snackbar/pui-snackbar.service';
 
 @Component({
   selector: 'app-user-list',
@@ -23,8 +23,8 @@ export class UserListComponent implements OnInit {
 
   users: User[];
   temp: User[];
-  selected: any[] = []
-  //selectedUser: string;
+  selected: number
+  selectedData: any[] = []
   displayedColumns: string[] = ['Gravatar', 'Nama', 'Nip', 'UserRoles'];
   dataSource: any
 
@@ -38,24 +38,13 @@ export class UserListComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     public dialog: MatDialog,
-    private snackbarService: PuiSnackbarService
+    private snackbarService: PuiSnackbarService,
   ) {}
 
   /** Called by Angular after user-list component initialized */
   ngOnInit() {
     this.prepareTableContent();
-    //this.dataSource.sort = this.sort;
-    // specify column
-    //this.columns = [
-    //  {
-    //    cellTemplate: this.gravatarTpl,
-    //    prop: "Gravatar",
-    //    width: "40"
-    //  },
-    //  { prop: "Nama" },
-    //  { prop: "Nip", width: "170" },
-    //  { prop: "UserRoles" }
-    //];
+    this.selected = -1;
   }
 
   prepareTableContent() {
@@ -105,32 +94,38 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  highlight(row) {
-    return this.selected.indexOf(row) === -1;
+  highlight(index, row) {
+    if (this.selected != index) {
+      this.selected = index;
+      this.selectedData = row;
+    } else {
+      this.selected = -1;
+    }
   }
-  //onAssignRoleClick() {
-  //  let dialogRef = this.dialog.open(UserDetailComponent, {
-  //    data: {
-  //      user: this.selected[0],
-  //      roles: this.selected[0].UserRoles
-  //    }
-  //  });
 
-  //  dialogRef.afterClosed().subscribe(result => {
-  //    if (result != null) {
-  //      this.userService.postUserRoles(result).subscribe((response: User) => {
-  //        // search user
-  //        this.users = this.users.map(x => {
-  //          if (x.UserId == response.UserId) {
-  //            x = Object.assign({}, x, response);
-  //          }
-  //          return x;
-  //        });
-  //        this.snackbarService.showSnackBar();
-  //      });
-  //    }
-  //    //this.animal = result;
-  //  });
-  //}
+  onAssignRoleClick() {
+    let dialogRef = this.dialog.open(UserDetailComponent, {
+      data: {
+        user: this.selectedData
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        this.userService.postUserRoles(result).subscribe((response: User) => {
+          // search user
+          this.users = this.users.map(x => {
+            if (x.UserId == response.UserId) {
+              x = Object.assign({}, x, response);
+            }
+            return x;
+          });
+          this.selected = -1;
+          this.snackbarService.showSnackBar();
+        });
+      }
+      //this.animal = result;
+    });
+  }
 
 }

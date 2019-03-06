@@ -18,35 +18,37 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { AuthService } from './shared/services/auth.service';
 import { MainModule } from './main/main.module';
 import { AppRoutingModule } from './app-routing.module';
+import { PusintekUiModule } from './shared/pusintek-ui/pusintek-ui.module';
 
 @NgModule({
-    declarations: [AppComponent],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    PusintekUiModule,
 
         TranslateModule.forRoot(),
-        MatMomentDateModule,
+    MatMomentDateModule,
 
-        // Material
-        MatButtonModule,
-        MatIconModule,
+    // Material
+    MatButtonModule,
+    MatIconModule,
 
-        // Fuse modules
-        FuseModule.forRoot(fuseConfig),
-        FuseProgressBarModule,
-        FuseSharedModule,
-        FuseSidebarModule,
-        FuseThemeOptionsModule,
+    // Fuse modules
+    FuseModule.forRoot(fuseConfig),
+    FuseProgressBarModule,
+    FuseSharedModule,
+    FuseSidebarModule,
+    FuseThemeOptionsModule,
 
-        // App modules
-        AppRoutingModule,
-        LayoutModule,
-        MainModule
-    ],
-    providers: [AuthService],
-    bootstrap: [AppComponent]
+    // App modules
+    AppRoutingModule,
+    LayoutModule,
+    MainModule
+  ],
+  providers: [AuthService],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

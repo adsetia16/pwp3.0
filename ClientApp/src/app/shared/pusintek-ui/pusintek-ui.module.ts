@@ -18,7 +18,7 @@ import { PuiSnackbarService } from './components/pui-snackbar/pui-snackbar.servi
     MatToolbarModule
   ],
   declarations: [PuiConfirmDialogComponent, PuiSnackbarComponent],
-  exports: [PuiConfirmDialogComponent],
+  exports: [PuiConfirmDialogComponent, PuiSnackbarComponent],
   entryComponents: [PuiConfirmDialogComponent, PuiSnackbarComponent],
   providers: [PuiConfirmDialogService, PuiSnackbarService]
 })

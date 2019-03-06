@@ -4,7 +4,7 @@ import { DataTableImporter } from '../../shared/models/mat-material-importer';
 import { UserRoutingModule } from './user-routing.module';
 import { CommonModule } from '@angular/common';
 import { FuseSearchBarModule, FuseWidgetModule } from '@fuse/components';
-import { MatListModule, MatDialogModule, MatChipsModule, MatExpansionModule, MatSlideToggleModule, MatSelectModule, MatTableModule, MatIconModule, MatButtonModule, MatPaginatorModule, MatToolbarModule } from '@angular/material';
+import { MatListModule, MatDialogModule, MatChipsModule, MatExpansionModule, MatSlideToggleModule, MatSelectModule, MatTableModule, MatIconModule, MatButtonModule, MatPaginatorModule, MatToolbarModule, MatSortModule } from '@angular/material';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { WingModule } from 'app/shared/wing/wing.module';
@@ -22,6 +22,7 @@ import { WingModule } from 'app/shared/wing/wing.module';
     MatIconModule,
     MatButtonModule,
     MatPaginatorModule,
+    MatSortModule,
     MatToolbarModule,
     ...DataTableImporter,
     UserRoutingModule,
