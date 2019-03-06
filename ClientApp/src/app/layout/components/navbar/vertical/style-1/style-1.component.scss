@@ -169,14 +169,14 @@ navbar {
                 align-items: center;
                 justify-content: flex-start;
                 width: 100%;
-                height: 110px;
-                min-height: 110px;
-                max-height: 110px;
+                height: 135px;
+                min-height: 135px;
+                max-height: 135px;
                 padding: 20px 0 64px 0;
 
                 .avatar-container {
                     position: absolute;
-                    top: 52px;
+                    top: 90px;
                     border-radius: 50%;
                     padding: 8px;
                     transform: translateX(-50%);
@@ -192,7 +192,7 @@ navbar {
 
             .navbar-content {
                 flex: 1 1 auto;
-                padding-top: 32px;
+                padding-top: 52px;
             }
         }
     }
