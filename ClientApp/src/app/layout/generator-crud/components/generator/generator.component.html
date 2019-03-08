@@ -1,22 +1,99 @@
-<div style="margin: 10px 40px; max-width: 600px;">
-  <div fxLayout="column" fxLayoutAlign="space-between left" style="margin: 30px 0px 0px 30px; max-width: 100px !important;" >
-    <h3>Generator CRUD</h3>
-    <mat-form-field>
-      <mat-select placeholder="Pilih Entity" [(ngModel)]="selectedModel" (selectionChange)="checkModuleExist()">
-        <mat-option *ngFor="let model of models" [value]="model">
-          {{model}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div mat-dialog-actions class="m-0 p-16" fxLayout="column" fxLayoutAlign="space-between end">
-        <button mat-button color="primary" (click)="loadAttribute()">Pilih Attribute</button>
-    </div>
+<div id="content-layout" class="page-layout carded fullwidth inner-scroll">
+  <div class="top-bg accent"></div>
+  <div class="center">
 
-    <mat-selection-list #features>
-      <mat-list-option *ngFor="let feature of featuresArray" [selected]="attrSelected(feature.value)" (click)="selectChange(features)" [value]="feature.value">
-          {{feature.name}}
-      </mat-list-option>
-    </mat-selection-list>
-    <button mat-raised-button color="primary" (click)="onSaveForm()" >Generate</button>
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between center">
+
+      <!-- APP TITLE -->
+      <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          settings_applications
+        </mat-icon>
+        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          Generator CRUD
+        </span>
+      </div>
+      <!-- / APP TITLE -->
+    </div>
+    <!-- / HEADER -->
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+      <div class="toolbar px-24 py-8">
+        <span>Generator CRUD</span>
+      </div>
+      <div class="content p-24">
+        <form fxLayout="column">
+          <div fxFlex="1 0 auto" fxLayout="column">
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Pilih Entity</mat-label>
+              <mat-select [(ngModel)]="selectedModel" [ngModelOptions]="{standalone: true}" (selectionChange)="checkModuleExist()" required>
+                <mat-option *ngFor="let model of models" [value]="model">
+                  {{model}}
+                </mat-option>
+              </mat-select>
+              <mat-error>Entity wajib diisi!</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <button mat-raised-button type="button" color="accent" (click)="loadAttribute()">
+              Pilih Atribut
+            </button>
+          </div>
+          <br />
+          <div fxFlex="1 0 auto" fxLayout="column">
+            <mat-divider></mat-divider>
+            <mat-selection-list #features>
+              <mat-list-option *ngFor="let feature of featuresArray" [selected]="attrSelected(feature.value)" (click)="selectChange(features)" [value]="feature.value">
+                {{feature.name}}
+              </mat-list-option>
+            </mat-selection-list>
+            <mat-divider></mat-divider>
+          </div>
+          <br />
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <button mat-raised-button type="button" color="accent" (click)="onSaveForm()">
+              Generate
+            </button>
+          </div>
+        </form>
+        <!--<div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Pilih Entity</mat-label>
+              <mat-select [(ngModel)]="selectedModel" (selectionChange)="checkModuleExist()" required>
+                <mat-option *ngFor="let model of models" [value]="model">
+                  {{model}}
+                </mat-option>
+              </mat-select>
+              <mat-error>Entity wajib diisi!</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <button mat-raised-button type="button" color="accent" (click)="loadAttribute()">
+              Pilih Atribut
+            </button>
+          </div>
+        </div>-->
+        <!--<mat-form-field>
+          <mat-select placeholder="Pilih Entity" [(ngModel)]="selectedModel" (selectionChange)="checkModuleExist()">
+            <mat-option *ngFor="let model of models" [value]="model">
+              {{model}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="column" fxLayoutAlign="space-between end">
+          <button mat-button color="primary" (click)="loadAttribute()">Pilih Attribute</button>
+        </div>
+
+        <mat-selection-list #features>
+          <mat-list-option *ngFor="let feature of featuresArray" [selected]="attrSelected(feature.value)" (click)="selectChange(features)" [value]="feature.value">
+            {{feature.name}}
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="onSaveForm()">Generate</button>-->
+      </div>
+    </div>
   </div>
 </div>

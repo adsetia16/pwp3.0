@@ -4,11 +4,13 @@ import { MatDialog } from '@angular/material';
 import { AttributeListComponent } from '../attribute-list/attribute-list.component';
 import { EntityService } from '../../services/entity.service';
 import { PuiConfirmDialogService } from '../../../../shared/pusintek-ui/components/pui-confirm-dialog/pui-confirm-dialog.service';
+import { fuseAnimations } from '@fuse/animations';
 
 @Component({
   selector: 'app-generator',
   templateUrl: './generator.component.html',
   styleUrls: ['./generator.component.css'],
+  animations: fuseAnimations,
   providers: [EntityService, PuiSnackbarService, PuiConfirmDialogService]
 })
 export class GeneratorComponent implements OnInit {
@@ -41,15 +43,21 @@ export class GeneratorComponent implements OnInit {
     })
   }
 
-  loadAttribute(){
+  loadAttribute() {
+    if (this.selectedModel  === "") {
+      this.snackBar.showSnackBar("error", "Pilih Entity terlebih dahulu!");
+      return
+    }
     this.selectedAttr = []
     let dialog = this.dialog.open(AttributeListComponent, {
       data: { model: this.selectedModel }
   })
 
     dialog.afterClosed().subscribe((result) => {
-      this.selectedAttr = result.attr
-      this.primaryKey = result.primaryKey
+      if (result != null) {
+        this.selectedAttr = result.attr
+        this.primaryKey = result.primaryKey
+      }
     })
   }
 
@@ -69,9 +77,8 @@ export class GeneratorComponent implements OnInit {
   }
 
   onSaveForm(){
-    if(this.selectedAttr.length === 0 || this.primaryKey == ""){
-      alert('pilih attribute terlebih dahulu')
-      return
+    if (this.selectedAttr.length === 0 || this.primaryKey == "") {
+      this.snackBar.showSnackBar("error", "Pilih Atribut terlebih dahulu!");
     }
     const params = {
       Model: this.selectedModel,
