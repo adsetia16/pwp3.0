@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: './main/home/home.module#HomeModule'
   },
   {
+    path: 'calendar',
+    loadChildren: './main/calendar/calendar.module#CalendarModule'
+  },
+  {
     path: 'user',
     loadChildren: './layout/user/user.module#UserModule'
   },
