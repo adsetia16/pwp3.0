@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: './main/home/home.module#HomeModule'
   },
   {
+    path: 'apps',
+    loadChildren: './main/apps/apps.module#AppsModule'
+  },
+  {
     path: 'user',
     loadChildren: './layout/user/user.module#UserModule'
   },
