@@ -2,21 +2,6 @@
   <div class="top-bg accent"></div>
   <div class="center">
 
-    <!-- HEADER -->
-    <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
-         fxLayoutAlign.gt-sm="space-between center">
-
-      <!-- APP TITLE -->
-      <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
-        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-          menu
-        </mat-icon>
-        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-          Menu Manager
-        </span>
-      </div>
-      <!-- / APP TITLE -->
-    </div>
     <!-- / HEADER -->
     <!-- CONTENT CARD -->
     <div class="content-card">
@@ -46,8 +31,8 @@
         </div>
       </div>
 
-      <div class="content p-24">
-        <div class="mat-elevation-z8">
+      <div class="content p-24" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
+        <div class="mat-elevation">
           <p-treeTable [value]="treeMenus" [columns]="columns" selectionMode="single" [(selection)]="selectedMenu" [metaKeySelection]="false" (onNodeSelect)="onNodeSelect($event)">
             <ng-template pTemplate="header" let-columns>
               <tr>

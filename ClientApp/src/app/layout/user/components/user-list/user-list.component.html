@@ -3,20 +3,20 @@
   <div class="center">
 
     <!-- HEADER -->
-    <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
-         fxLayoutAlign.gt-sm="space-between center">
+    <!--<div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between center">-->
 
       <!-- APP TITLE -->
-      <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+      <!--<div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
           face
         </mat-icon>
         <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
           List User
         </span>
-      </div>
+      </div>-->
       <!-- / APP TITLE -->
-    </div>
+   
     <!-- / HEADER -->
     <!-- CONTENT CARD -->
     <div class="content-card">
@@ -41,8 +41,8 @@
           <wing-search (keyup)="applyFilter($event.target.value)" [clearText]="true" [showSearch]="showSearch"></wing-search>
         </div>
       </div>
-      <div class="content p-24">
-        <div class="mat-elevation-z8">
+      <div class="content p-24" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
+        <div class="mat-elevation">
           <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="Gravatar">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Gravatar </th>

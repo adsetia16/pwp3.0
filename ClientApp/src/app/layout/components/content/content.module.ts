@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { ContentComponent } from 'app/layout/components/content/content.component';
+import { CoreModule } from '../../../core/core.module';
 
 @NgModule({
     declarations: [
@@ -11,7 +12,8 @@ import { ContentComponent } from 'app/layout/components/content/content.componen
     ],
     imports     : [
         RouterModule,
-        FuseSharedModule
+        FuseSharedModule,
+        CoreModule
     ],
     exports     : [
         ContentComponent

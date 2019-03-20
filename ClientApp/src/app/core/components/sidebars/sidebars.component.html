@@ -1,0 +1,30 @@
+<!-- SIDEBAR HEADER -->
+<div fxLayout="column" fxLayoutAlign="space-between start"
+     class="header accent p-40 pb-4">
+
+    <div class="logo" fxFlex fxLayout="row" fxLayoutAlign="start center">
+      <img class="logo-icon" src="assets/images/logos/logo_eprime_96.png"  [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+      <span class="logo-text" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">PWP 3.0</span>
+    </div>
+</div>
+<!-- / SIDEBAR HEADER -->
+
+<!-- SIDEBAR CONTENT -->
+<div class="content" fusePerfectScrollbar [@animate]="{value:'*',params:{y:'50px'}}">
+    <div class="nav material2">
+      <ng-container *ngFor="let menu of navMenus" >
+        <div class="nav-subheader" *ngIf="menu.Type=='group'">{{ menu.Name }}</div>
+
+        <div class="nav-item" *ngFor="let item of menu.Items">
+            <a class="nav-link" matRipple [routerLink]="item.Link"
+               [routerLinkActive]="['active', 'accent']"
+               [routerLinkActiveOptions]="{exact: item.Exact || false}">
+                <mat-icon class="nav-link-icon" *ngIf="item.Icon">{{ item.Icon }}</mat-icon>
+                <span>{{item.Name}}</span>
+            </a>
+        </div>
+      </ng-container>
+    </div>
+</div>
+<!-- / SIDEBAR CONTENT -->
+

@@ -17,18 +17,20 @@ import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AuthService } from './shared/services/auth.service';
 import { MainModule } from './main/main.module';
-import { AppRoutingModule } from './app-routing.module';
 import { PusintekUiModule } from './shared/pusintek-ui/pusintek-ui.module';
+import { AppRoutingModule } from './app-routing.module';
+
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     PusintekUiModule,
 
-        TranslateModule.forRoot(),
+    TranslateModule.forRoot(),
     MatMomentDateModule,
 
     // Material
@@ -43,7 +45,6 @@ import { PusintekUiModule } from './shared/pusintek-ui/pusintek-ui.module';
     FuseThemeOptionsModule,
 
     // App modules
-    AppRoutingModule,
     LayoutModule,
     MainModule
   ],

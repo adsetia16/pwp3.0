@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { MenuService } from 'app/layout/menu/services/menu.service';
 import { MenuItemModel } from 'app/shared/models/menu-item';

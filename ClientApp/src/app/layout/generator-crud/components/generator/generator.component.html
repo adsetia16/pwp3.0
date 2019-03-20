@@ -2,28 +2,13 @@
   <div class="top-bg accent"></div>
   <div class="center">
 
-    <!-- HEADER -->
-    <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
-         fxLayoutAlign.gt-sm="space-between center">
-
-      <!-- APP TITLE -->
-      <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
-        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-          settings_applications
-        </mat-icon>
-        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-          Generator CRUD
-        </span>
-      </div>
-      <!-- / APP TITLE -->
-    </div>
     <!-- / HEADER -->
     <!-- CONTENT CARD -->
     <div class="content-card">
       <div class="toolbar px-24 py-8">
         <span>Generator CRUD</span>
       </div>
-      <div class="content p-24">
+      <div class="content p-24" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
         <form fxLayout="column">
           <div fxFlex="1 0 auto" fxLayout="column">
             <mat-form-field appearance="outline" fxFlex="100">

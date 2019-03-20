@@ -34,18 +34,14 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="ClientApp\src\app\core\**" />
     <Compile Remove="Pages\Shared\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="ClientApp\src\app\core\**" />
     <Content Remove="Pages\Shared\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="ClientApp\src\app\core\**" />
     <EmbeddedResource Remove="Pages\Shared\**" />
-    <None Remove="ClientApp\src\app\core\**" />
     <None Remove="Pages\Shared\**" />
   </ItemGroup>
 

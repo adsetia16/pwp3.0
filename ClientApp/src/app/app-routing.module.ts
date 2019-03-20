@@ -1,22 +1,17 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SampleComponent } from './main/sample/sample.component';
-import { HomeComponent } from './main/home/components/home/home.component';
-import { Error404Component } from './layout/errors/404/error-404.component';
-import { Error500Component } from './layout/errors/500/error-500.component';
-// import { HomeComponent } from "./main/home/components/home/home.component";
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { HomeComponent } from "./main/home/components/home/home.component";
+import { Error500Component } from "./layout/errors/500/error-500.component";
+import { Error404Component } from "./layout/errors/404/error-404.component";
 // import { PageErrorComponent } from "./core/layout/components/page-error/page-error.component";
 // import { Page404Component } from "./core/layout/components/page-404/page-404.component";
 // import { Page401Component } from "./core/layout/components/page-401/page-401.component";
 
-const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent
-  },
+
+const appRoutes: Routes = [
   {
     path: 'home',
-    loadChildren: './main/home/home.module#HomeModule'
+    component: HomeComponent
   },
   {
     path: 'apps',
@@ -50,12 +45,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
   providers: [],
   declarations: [
     Error404Component,
-    Error500Component
+    Error500Component,
     // Page404Component,
     // PageErrorComponent,
     // Page401Component

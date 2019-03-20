@@ -7,7 +7,7 @@ import { SysParam } from "../../../../shared/models/sys-param";
 @Component({
     selector: "app-action-role-form",
     templateUrl: "./action-role-form.component.html",
-    styleUrls: ["./action-role-form.component.css"]
+    styleUrls: ["./action-role-form.component.scss"]
 })
 export class ActionRoleFormComponent implements OnInit {
 

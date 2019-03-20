@@ -3,78 +3,73 @@
 // -----------------------------------------------------------------------------------------------------
 @mixin page-layouts-theme($theme) {
 
-    $background: map-get($theme, background);
-    $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
 
-    .page-layout {
+  .page-layout {
+    // Carded layout
+    &.carded {
+      // Fullwidth
+      &.fullwidth {
 
-        // Carded layout
-        &.carded {
+        > .center {
 
-            // Fullwidth
-            &.fullwidth {
+          > .content-card {
+            background: map-get($background, card);
+            border-radius: 8px 8px 0 0;
 
-                > .center {
-
-                    > .content-card {
-                        background: map-get($background, card);
-                        border-radius: 8px 8px 0 0;
-
-                        > .toolbar {
-                            border-bottom-color: map-get($foreground, divider);
-                        }
-                    }
-                }
+            > .toolbar {
+              border-bottom-color: map-get($foreground, divider);
             }
-
-            // Left / Right sidebar
-            &.left-sidebar,
-            &.right-sidebar {
-
-                > .center {
-
-                    > .content-card {
-                        background: map-get($background, card);
-                        border-radius: 8px 8px 0 0;
-
-                        > .toolbar {
-                            border-bottom-color: map-get($foreground, divider);
-                        }
-                    }
-                }
-            }
+          }
         }
+      }
+      // Left / Right sidebar
+      &.left-sidebar,
+      &.right-sidebar {
 
-        // Simple layout
-        &.simple {
+        > .center {
 
-            // Left / Right sidebar
-            &.left-sidebar,
-            &.right-sidebar {
+          > .content-card {
+            background: map-get($background, card);
+            border-radius: 8px 8px 0 0;
 
-                > .center {
-
-                    > .content {
-                        background: map-get($background, card);
-                    }
-                }
-
-                // Inner sidebar
-                &.inner-sidebar {
-
-                    > .content {
-
-                        > .center {
-
-                            > .content {
-                                background: map-get($background, card);
-                            }
-                        }
-                    }
-                }
+            > .toolbar {
+              border-bottom-color: map-get($foreground, divider);
             }
+          }
         }
+      }
     }
+    // Simple layout
+    &.simple {
+      // Left / Right sidebar
+      &.left-sidebar,
+      &.right-sidebar {
+
+        > .center {
+
+          > .content {
+            background: map-get($background, card);
+            border: 1px solid;
+          }
+        }
+        // Inner sidebar
+        &.inner-sidebar {
+
+          > .content {
+
+            > .center {
+
+              > .content {
+                background: map-get($background, card);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 // -----------------------------------------------------------------------------------------------------
@@ -119,7 +114,7 @@ $carded-header-height-without-toolbar: $carded-header-height - $carded-toolbar-h
                 flex: 1 0 auto;
                 position: relative;
                 z-index: 2;
-                padding: 0 32px;
+                padding: 0 0px;
                 width: 100%;
                 min-width: 0;
                 max-width: 100%;

@@ -1,0 +1,21 @@
+<div id="app-layout-main" class="page-layout carded left-sidebar inner-scroll">
+  <div class="top-bg accent"></div>
+
+ 
+  <fuse-sidebar class="sidebar" name="app-sidebars" position="left" lockedOpen="gt-md">
+      <app-sidebars></app-sidebars>
+  </fuse-sidebar>
+
+
+  <div class="center">
+    <div class="header" fxLayout="row" fxLayoutAlign="start center"></div>
+    <div class="content-card" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
+
+      <!-- CONTENT -->
+      <router-outlet></router-outlet>
+      <!-- /CONTENT -->
+
+    </div>
+  </div>
+
+  </div>

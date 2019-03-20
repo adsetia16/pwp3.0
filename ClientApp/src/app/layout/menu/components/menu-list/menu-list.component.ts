@@ -13,7 +13,7 @@ import { Pagination } from "app/shared/models/pagination";
 @Component({
   selector: "app-menu-list",
   templateUrl: "./menu-list.component.html",
-  styleUrls: ["./menu-list.component.css"],
+  styleUrls: ["./menu-list.component.scss"],
   providers: [MenuService, TreeDragDropService],
   animations: fuseAnimations
 })

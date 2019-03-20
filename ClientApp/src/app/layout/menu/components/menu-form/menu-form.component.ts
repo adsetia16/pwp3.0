@@ -13,7 +13,7 @@ import { Role } from "../../../user/models/role";
 @Component({
     selector: "app-menu-form",
     templateUrl: "./menu-form.component.html",
-    styleUrls: ["./menu-form.component.css"]
+    styleUrls: ["./menu-form.component.scss"]
 })
 export class MenuFormComponent implements OnInit {
     formModel: MenuItemModel;

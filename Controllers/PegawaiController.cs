@@ -41,5 +41,27 @@ namespace pwp3._0.Controllers
                 return Ok(new ResultModel { isSuccessful = false, message = "Gagal mengambil info data pegawai." });
             }
         }
-    }
+
+		[HttpGet("unit1")]
+		public async Task<IActionResult> GetUnitEs1()
+		{
+			//limit = Int32.Parse(Request.Query["limit"]);
+			//keyword = Request.Query["search"].ToString();
+
+			var result = await GetStringAsync("/hris/api/organisasi/getunitoptions/35");
+			//List<Unit> data = JsonConvert.DeserializeObject<List<Unit>>(result);
+
+			//var Query = from m in data
+			//			select m;
+
+			//if (keyword.Length > 0)
+			//{
+			//	Query = Query.Where(a => a.NamaOrganisasi.Contains(keyword));
+			//}
+
+			//var unit = Query.Take(limit).ToList();
+
+			return Ok(result);
+		}
+	}
 }
