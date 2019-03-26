@@ -5,11 +5,12 @@ import { AttributeListComponent } from '../attribute-list/attribute-list.compone
 import { EntityService } from '../../services/entity.service';
 import { PuiConfirmDialogService } from '../../../../shared/pusintek-ui/components/pui-confirm-dialog/pui-confirm-dialog.service';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-generator',
   templateUrl: './generator.component.html',
-  styleUrls: ['./generator.component.css'],
+  styleUrls: ['./generator.component.scss'],
   animations: fuseAnimations,
   providers: [EntityService, PuiSnackbarService, PuiConfirmDialogService]
 })
@@ -31,6 +32,7 @@ export class GeneratorComponent implements OnInit {
   featureSelected: string[] = []
   moduleExist = false
   constructor(
+    private _fuseSidebarService: FuseSidebarService,
     public snackBar: PuiSnackbarService,
     public service: EntityService,
     public dialog: MatDialog,
@@ -102,4 +104,15 @@ export class GeneratorComponent implements OnInit {
       })
     }
   }
+
+
+  /**
+   * Toggle the sidebar
+   *
+   * @param name
+   */
+  toggleSidebar(name): void {
+    this._fuseSidebarService.getSidebar(name).toggleOpen();
+  }
+
 }

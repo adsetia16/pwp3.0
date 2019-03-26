@@ -8,13 +8,13 @@ import { CalendarEventModel } from '../e-agenda.model';
 
 
 @Component({
-    selector     : 'calendar-event-form-dialog',
+    selector     : 'agenda-event-form-dialog',
     templateUrl  : './event-form.component.html',
     styleUrls    : ['./event-form.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 
-export class CalendarEventFormDialogComponent
+export class AgendaEventFormDialogComponent
 {
     action: string;
     event: CalendarEvent;
@@ -30,7 +30,7 @@ export class CalendarEventFormDialogComponent
      * @param {FormBuilder} _formBuilder
      */
     constructor(
-        public matDialogRef: MatDialogRef<CalendarEventFormDialogComponent>,
+        public matDialogRef: MatDialogRef<AgendaEventFormDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private _formBuilder: FormBuilder
     )
@@ -66,7 +66,9 @@ export class CalendarEventFormDialogComponent
     createEventForm(): FormGroup
     {
         return new FormGroup({
-            title : new FormControl(this.event.title),
+          title: new FormControl(this.event.title),
+          //type: new FormControl(this.event.type),
+          //title: new FormControl(this.event.title),
             start : new FormControl(this.event.start),
             end   : new FormControl(this.event.end),
             allDay: new FormControl(this.event.allDay),

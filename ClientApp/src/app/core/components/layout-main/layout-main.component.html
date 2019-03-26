@@ -1,21 +1,32 @@
-<div id="app-layout-main" class="page-layout carded left-sidebar inner-scroll">
+<div id="layout-main" class="page-layout carded left-sidebar inner-scroll">
   <div class="top-bg accent"></div>
 
- 
+
   <fuse-sidebar class="sidebar" name="app-sidebars" position="left" lockedOpen="gt-md">
-      <app-sidebars></app-sidebars>
+    <app-sidebars></app-sidebars>
   </fuse-sidebar>
 
 
   <div class="center">
-    <div class="header" fxLayout="row" fxLayoutAlign="start center"></div>
-    <div class="content-card" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
+    <!--Hilangkan ini di component-->
+    <div class="header" fxLayout="row" fxLayoutAlign="start center">
+      <div class="search-wrapper" fxFlex fxLayout="row" fxLayoutAlign="start center">
 
-      <!-- CONTENT -->
+        <button mat-icon-button class="sidebar-toggle" fxHide.gt-md
+                (click)="toggleSidebar('app-sidebars')">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <div class="search" fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon class="secondary-text">search</mat-icon>
+          <input fxFlex><!--masih belum fix-->
+        </div>
+
+      </div>
+    </div>
+    <div class="content-card" fusePerfectScrollbar>
       <router-outlet></router-outlet>
-      <!-- /CONTENT -->
-
     </div>
   </div>
 
-  </div>
+</div>

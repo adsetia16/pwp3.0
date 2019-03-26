@@ -4,10 +4,10 @@ import { MatDialog, MatSnackBar, MatPaginator, MatSort, MatTableDataSource } fro
 import { ActionRoleFormComponent } from "../action-role-form/action-role-form.component";
 import { RoleAction } from "../../../../shared/models/action-model";
 import { ResultModel } from "../../../../shared/models/result-model";
-import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { PuiSnackbarService } from "../../../../shared/pusintek-ui/components/pui-snackbar/pui-snackbar.service";
 import { fuseAnimations } from "@fuse/animations";
 import { Pagination } from "app/shared/models/pagination";
+import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 
 @Component({
   selector: "app-action-role-list",
@@ -18,6 +18,7 @@ import { Pagination } from "app/shared/models/pagination";
 })
 export class ActionRoleListComponent implements OnInit {
   constructor(
+    private _fuseSidebarService: FuseSidebarService,
     private arService: ActionRoleService,
     public dialog: MatDialog,
     private snackbarService: PuiSnackbarService
@@ -105,5 +106,14 @@ export class ActionRoleListComponent implements OnInit {
         );
       }
     });
+  }
+
+  /**
+ * Toggle the sidebar
+ *
+ * @param name
+ */
+  toggleSidebar(name): void {
+    this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
 }

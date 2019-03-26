@@ -2,45 +2,33 @@
 
 error-404 {
 
-    #error-404 {
-        width: 100%;
+  #error-404 {
+    width: 100%;
 
-        .content {
-            width: 90%;
-            max-width: 512px !important;
 
-            .error-code {
-                font-size: 112px;
-                text-align: center;
-                line-height: 1;
-                margin-bottom: 16px;
-                font-weight: 600;
-            }
+    .content {
+      width: 90%;
+      max-width: 512px !important;
 
-            .message {
-                font-size: 24px;
-                text-align: center;
-            }
+      .error-code {
+        font-size: 90px;
+        text-align: center;
+        line-height: 1;
+        margin-bottom: 16px;
+        font-weight: 600;
+        padding-top:30%;
+      }
 
-            .search {
-                width: 100%;
-                height: 56px;
-                line-height: 56px;
-                margin: 48px auto 16px auto;
-                padding: 16px;
-                border: 1px solid;
-                border-radius: 28px;
+      .message {
+        font-size: 24px;
+        text-align: center;
+      }
 
-                input {
-                    padding: 0 0 0 16px;
-                }
-            }
 
-            .back-link {
-                
-                font-size: 15px;
-                text-align: center;
-            }
-        }
+      .back-link {
+        font-size: 15px;
+        text-align: center;
+      }
     }
+  }
 }

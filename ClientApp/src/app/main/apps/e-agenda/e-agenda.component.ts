@@ -8,7 +8,8 @@ import { Subject } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { EAgendaService } from './e-agenda.service';
 import { CalendarEventModel } from './e-agenda.model';
-import { CalendarEventFormDialogComponent } from './event-form/event-form.component';
+import { AgendaEventFormDialogComponent } from './event-form/event-form.component';
+import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class EAgendaComponent implements OnInit {
   viewDate: Date;
 
   constructor(
+    private _fuseSidebarService: FuseSidebarService,
     private _matDialog: MatDialog,
     //private _calendarService: CalendarService
   ) {
@@ -147,13 +149,13 @@ export class EAgendaComponent implements OnInit {
   editEvent(action: string, event: CalendarEvent): void {
     const eventIndex = this.events.indexOf(event);
 
-    // this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
-    //     panelClass: 'event-form-dialog',
-    //     data      : {
-    //         event : event,
-    //         action: action
-    //     }
-    // });
+     this.dialogRef = this._matDialog.open(AgendaEventFormDialogComponent, {
+         panelClass: 'event-form-dialog',
+         data      : {
+             event : event,
+             action: action
+         }
+     });
 
     this.dialogRef.afterClosed()
       .subscribe(response => {
@@ -185,13 +187,13 @@ export class EAgendaComponent implements OnInit {
   }
 
   addEvent(): void {
-    // this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
-    //     panelClass: 'event-form-dialog',
-    //     data      : {
-    //         action: 'new',
-    //         date  : this.selectedDay.date
-    //     }
-    // });
+    this.dialogRef = this._matDialog.open(AgendaEventFormDialogComponent, {
+         panelClass: 'event-form-dialog',
+         data      : {
+             action: 'new',
+             date  : this.selectedDay.date
+         }
+     });
     this.dialogRef.afterClosed()
       .subscribe((response: FormGroup) => {
         if (!response) {
@@ -202,6 +204,15 @@ export class EAgendaComponent implements OnInit {
         this.events.push(newEvent);
         this.refresh.next(true);
       });
+  }
+
+  /**
+ * Toggle the sidebar
+ *
+ * @param name
+ */
+  toggleSidebar(name): void {
+    this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
 
 }

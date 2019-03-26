@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material';
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { Error404Component } from 'app/layout/errors/404/error-404.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes = [
     {
@@ -19,9 +20,9 @@ const routes = [
     imports     : [
         RouterModule.forChild(routes),
 
-        MatIconModule,
-
-        FuseSharedModule
+      MatIconModule,
+      BrowserAnimationsModule,
+       FuseSharedModule
     ]
 })
 export class Error404Module

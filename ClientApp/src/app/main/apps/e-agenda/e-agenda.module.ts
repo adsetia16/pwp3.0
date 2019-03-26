@@ -11,11 +11,11 @@ import { JadwalkuComponent } from './jadwalku/jadwalku.component';
 import { JadwalatasanComponent } from './jadwalatasan/jadwalatasan.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { EAgendaService } from './e-agenda.service';
-import { CalendarEventFormDialogComponent } from './event-form/event-form.component';
+import { AgendaEventFormDialogComponent } from './event-form/event-form.component';
 
 
 @NgModule({
-  declarations: [EAgendaComponent, JadwalkuComponent, JadwalatasanComponent, CalendarEventFormDialogComponent],
+  declarations: [EAgendaComponent, JadwalkuComponent, JadwalatasanComponent, AgendaEventFormDialogComponent],
   exports: [EAgendaComponent],
   imports: [
     MatButtonModule,
@@ -41,7 +41,7 @@ import { CalendarEventFormDialogComponent } from './event-form/event-form.compon
     EAgendaService
   ],
   entryComponents: [
-    CalendarEventFormDialogComponent
+    AgendaEventFormDialogComponent
   ]
 })
 export class EAgendaModule { }

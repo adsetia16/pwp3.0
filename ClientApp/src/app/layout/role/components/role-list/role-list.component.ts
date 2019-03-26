@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { RoleService } from "../../services/role.service";
-import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { MatDialog, MatSnackBar, MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
 import { PuiConfirmDialogService } from "../../../../shared/pusintek-ui/components/pui-confirm-dialog/pui-confirm-dialog.service";
 import { RoleFormComponent } from "../role-form/role-form.component";
@@ -10,12 +9,13 @@ import { AuthService } from "../../../../shared/services/auth.service";
 import { Role } from "../../../user/models/role";
 import { fuseAnimations } from "@fuse/animations";
 import { Pagination } from "app/shared/models/pagination";
+import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 
 
 @Component({
   selector: "app-role-list",
   templateUrl: "./role-list.component.html",
-  styleUrls: ["./role-list.component.css"],
+  styleUrls: ["./role-list.component.scss"],
   providers: [RoleService],
   animations: fuseAnimations
 })
@@ -31,6 +31,7 @@ export class RoleListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private _fuseSidebarService: FuseSidebarService,
     private authService: AuthService,
     private roleService: RoleService,
     public dialog: MatDialog,
@@ -160,5 +161,15 @@ export class RoleListComponent implements OnInit {
   updateAllRolesInAuthService() {
     // update isi allRoles di authService, dilakukan setelah proses update, delete, atau add
     this.authService.allRoles = this.allRoles;
+  }
+
+
+  /**
+   * Toggle the sidebar
+   *
+   * @param name
+   */
+  toggleSidebar(name): void {
+    this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
 }

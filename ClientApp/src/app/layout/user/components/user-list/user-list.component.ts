@@ -10,6 +10,7 @@ import { UserFormComponent } from '../user-form/user-form.component';
 import { Pagination } from 'app/shared/models/pagination';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { PuiSnackbarService } from 'app/shared/pusintek-ui/components/pui-snackbar/pui-snackbar.service';
+import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-user-list',
@@ -33,6 +34,7 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private _fuseSidebarService: FuseSidebarService,
     private userService: UserService,
     private authService: AuthService,
     private router: Router,
@@ -111,6 +113,17 @@ export class UserListComponent implements OnInit {
       }
       //this.animal = result;
     });
+
+  }
+
+
+  /**
+   * Toggle the sidebar
+   *
+   * @param name
+   */
+  toggleSidebar(name): void {
+    this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
 
 }

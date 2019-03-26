@@ -1,11 +1,10 @@
 <div id="content-layout" class="page-layout carded fullwidth inner-scroll">
-  <div class="top-bg accent"></div>
   <div class="center">
     <!-- CONTENT CARD -->
-    <div class="content-card">
       <div class="toolbar px-24 py-8">
 
         <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+
           <button *ngIf="selected >= 0" matTooltip="Update" mat-mini-fab color="accent" (click)="onEditClick()">
             <mat-icon>assignment</mat-icon>
           </button>
@@ -16,7 +15,7 @@
           <wing-search (keyup)="applyFilter($event.target.value)" [clearText]="true" [showSearch]="showSearch"></wing-search>
         </div>
       </div>
-      <div class="content p-24">
+      <div class="content p-24" [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
         <div class="mat-elevation">
           <table mat-table [dataSource]="dataSource" matSort>
 
@@ -40,5 +39,5 @@
       </div>
     </div>
     <!-- / CONTENT CARD -->
-  </div>
+
 </div>

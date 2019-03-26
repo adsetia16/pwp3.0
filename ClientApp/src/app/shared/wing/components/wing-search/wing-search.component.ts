@@ -13,9 +13,9 @@ export class WingSearchComponent implements OnInit {
   @Output() clickSearch: EventEmitter<any> = new EventEmitter()
 
   @Input() clearText           = false // jika true ketika menekan tombol Close (X) text pada search input akan terhapus, jika false tidak akan hilang
-  @Input() showSearch           = false // panggil variable ini jika ingin menampilkan/atau menyembunyikan search input pada control yang lain.
+  @Input() showSearch           = true // panggil variable ini jika ingin menampilkan/atau menyembunyikan search input pada control yang lain.
   @Input() public textSearch            = '' // panggil variable ini jika mengosongkan text pada search box.
-  @Input() placeHolder            = 'Cari' // menggantik text pada placeholder
+  @Input() placeHolder            = 'Cari...' // menggantik text pada placeholder
   @Input() updateOnEnter = false
 
   subscriptionMedia: Subscription

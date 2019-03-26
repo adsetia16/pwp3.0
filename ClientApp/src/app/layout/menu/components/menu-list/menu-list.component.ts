@@ -9,6 +9,7 @@ import { PuiConfirmDialogService } from "../../../../shared/pusintek-ui/componen
 import { PuiSnackbarService } from "../../../../shared/pusintek-ui/components/pui-snackbar/pui-snackbar.service";
 import { fuseAnimations } from "@fuse/animations";
 import { Pagination } from "app/shared/models/pagination";
+import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 
 @Component({
   selector: "app-menu-list",
@@ -19,6 +20,7 @@ import { Pagination } from "app/shared/models/pagination";
 })
 export class MenuListComponent extends Pagination implements OnInit {
   constructor(
+    private _fuseSidebarService: FuseSidebarService,
     private menuService: MenuService,
     public dialog: MatDialog,
     private dialogsService: PuiConfirmDialogService,
@@ -198,4 +200,15 @@ export class MenuListComponent extends Pagination implements OnInit {
     let type = event.node.data.Type;
     this.isItemSelected = type == "item";
   }
+
+  /**
+ * Toggle the sidebar
+ *
+ * @param name
+ */
+  toggleSidebar(name): void {
+    this._fuseSidebarService.getSidebar(name).toggleOpen();
+  }
+
+
 }

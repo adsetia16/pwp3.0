@@ -3,9 +3,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./main/home/components/home/home.component";
 import { Error500Component } from "./layout/errors/500/error-500.component";
 import { Error404Component } from "./layout/errors/404/error-404.component";
-// import { PageErrorComponent } from "./core/layout/components/page-error/page-error.component";
-// import { Page404Component } from "./core/layout/components/page-404/page-404.component";
-// import { Page401Component } from "./core/layout/components/page-401/page-401.component";
 
 
 const appRoutes: Routes = [
@@ -51,9 +48,6 @@ const appRoutes: Routes = [
   declarations: [
     Error404Component,
     Error500Component,
-    // Page404Component,
-    // PageErrorComponent,
-    // Page401Component
   ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

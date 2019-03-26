@@ -13,6 +13,9 @@
       &.fullwidth {
 
         > .center {
+          > .toolbar {
+            border-bottom-color: map-get($foreground, divider);
+          }
 
           > .content-card {
             background: map-get($background, card);
@@ -75,7 +78,7 @@
 // -----------------------------------------------------------------------------------------------------
 // @ Page Layouts
 // -----------------------------------------------------------------------------------------------------
-$carded-header-height: 150px !default;
+$carded-header-height: 170px !default;
 $carded-toolbar-height: 64px !default;
 $header-height: 120px !default;
 
@@ -126,6 +129,15 @@ $carded-header-height-without-toolbar: $carded-header-height - $carded-toolbar-h
                     min-height: $carded-header-height-without-toolbar !important;
                     max-height: $carded-header-height-without-toolbar !important;
                 }
+                 > .toolbar {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        border-bottom: 1px solid;
+                        height: $carded-toolbar-height;
+                        min-height: $carded-toolbar-height;
+                        max-height: $carded-toolbar-height;
+                    }
 
                 > .content-card {
                     display: flex;
