@@ -47,6 +47,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: UserService
   ) {
+    this.authService._currentUser.subscribe((resp) => {
+      this.userInfo = resp
+    })
     // Set the defaults
     this.userStatusOptions = [
       {
@@ -103,12 +106,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    this.userService.getUserInfo().subscribe(result => {
-      this.userInfo = result;
-      sessionStorage.setItem('CurrentUser', JSON.stringify(result))
+    //this.userService.getUserInfo().subscribe(result => {
+    //  this.userInfo = result;
+    //  sessionStorage.setItem('CurrentUser', JSON.stringify(result))
 
-      this.authService.setUser(result);
-    });
+    //  this.authService.setUser(result);
+    //});
     //this.userInfo = JSON.parse(sessionStorage.getItem('CurrentUser'));
 
     // Subscribe to the config changes

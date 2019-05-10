@@ -13,7 +13,6 @@ import { NavbarVerticalStyle2Module } from 'app/layout/components/navbar/vertica
     ],
     imports     : [
         FuseSharedModule,
-
         NavbarHorizontalStyle1Module,
         NavbarVerticalStyle1Module,
         NavbarVerticalStyle2Module

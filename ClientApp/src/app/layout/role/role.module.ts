@@ -9,8 +9,7 @@ import {
   MatCheckboxModule,
   MatToolbarModule,
   MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
+  MatPaginatorModule
 
 } from "@angular/material";
 import { RoleDetailComponent } from "./components/role-detail/role-detail.component";
@@ -21,6 +20,7 @@ import { DataTableImporter } from "../../shared/models/mat-material-importer";
 import { RoleRoutingModule } from "./role-routing.module";
 import { WingModule } from "app/shared/wing/wing.module";
 import { FuseWidgetModule, FuseSearchBarModule } from "@fuse/components";
+import { FuseSharedModule } from "@fuse/shared.module";
 
 @NgModule({
   imports: [
@@ -37,7 +37,7 @@ import { FuseWidgetModule, FuseSearchBarModule } from "@fuse/components";
     WingModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    FuseSharedModule
   ],
   declarations: [
     RoleListComponent,

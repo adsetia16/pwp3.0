@@ -13,6 +13,11 @@ export class MenuService {
     return this.http.get<MenuItemModel[]>(url);
   }
 
+  getMenusByRole(role: string): Observable<MenuItemModel[]> {
+    const url = "api/Menu/byRole/" + role;
+    return this.http.get<MenuItemModel[]>(url);
+  }
+
   getAllMenus(): Observable<MenuItemModel[]> {
     const url = "api/Menu/-1";
     return this.http.get<MenuItemModel[]>(url);

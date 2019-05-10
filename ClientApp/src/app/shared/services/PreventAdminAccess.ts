@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class PreventAdminAccess implements CanActivate {
 
-  constructor() { }
+  constructor(
+    private _Service: AuthService,
+  ) { }
   isAdmin: boolean = false;
 
   canActivate() {
-    let cache: any;
-    cache = JSON.parse(sessionStorage.getItem('CurrentUser'));
-    var allRoles = cache.Roles.split(",");
-    this.isAdmin = allRoles.filter(a => a == "Administrator") == "Administrator";
+    this._Service._currentUser.subscribe((resp) => {
+      this.isAdmin = resp.Roles == "Administrator";
 
+      return this.isAdmin
+    })
     return this.isAdmin
   }
 } 

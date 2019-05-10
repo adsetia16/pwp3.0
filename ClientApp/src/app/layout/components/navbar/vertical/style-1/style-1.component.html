@@ -24,9 +24,7 @@
 
 <div class="navbar-scroll-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground"
      fusePerfectScrollbar [fusePerfectScrollbarOptions]="{suppressScrollX: true}">
-
   <div class="user" fxLayout="column" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
-
     <div class="h3 username">{{ userInfo.Nama }}</div>
     <div class="h5 email hint-text mt-8">NIP. {{ userInfo.Nip }}</div>
     <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground">
@@ -35,8 +33,19 @@
 
   </div>
 
-    <div class="navbar-content">
-        <fuse-navigation class="material2" layout="vertical"></fuse-navigation>
+  <div class="navbar-content">
+    <fuse-navigation class="material2" layout="vertical"></fuse-navigation>
+    <div class="account" fxLayout="column">
+      <mat-form-field floatLabel="never" id="matForm" class="temp" style="max-width: 1000px !important">
+        <div class="temp">
+          <mat-select style="max-width: 1000px !important" class="account-selection" placeholder="Ganti Role" matTooltip="{{Currentrole}}" [ngModel]="Currentrole">
+            <mat-option *ngFor="let i of roles" [value]="i" (click)="change(i)">
+              {{ i }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </mat-form-field>
     </div>
+  </div>
 
 </div>

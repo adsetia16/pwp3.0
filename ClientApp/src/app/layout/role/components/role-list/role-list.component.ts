@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { RoleService } from "../../services/role.service";
+import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { MatDialog, MatSnackBar, MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
 import { PuiConfirmDialogService } from "../../../../shared/pusintek-ui/components/pui-confirm-dialog/pui-confirm-dialog.service";
 import { RoleFormComponent } from "../role-form/role-form.component";
@@ -9,60 +10,58 @@ import { AuthService } from "../../../../shared/services/auth.service";
 import { Role } from "../../../user/models/role";
 import { fuseAnimations } from "@fuse/animations";
 import { Pagination } from "app/shared/models/pagination";
-import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 
 
 @Component({
   selector: "app-role-list",
   templateUrl: "./role-list.component.html",
-  styleUrls: ["./role-list.component.scss"],
+  styleUrls: ["./role-list.component.css"],
   providers: [RoleService],
   animations: fuseAnimations
 })
-export class RoleListComponent implements OnInit {
+export class RoleListComponent extends Pagination implements OnInit {
 
   role: Role;
   allRoles: Role[];
-  selected: number
+  select: number
   displayedColumns: string[] = ['RoleId', 'RoleName'];
   dataSource: any
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   constructor(
-    private _fuseSidebarService: FuseSidebarService,
     private authService: AuthService,
     private roleService: RoleService,
     public dialog: MatDialog,
     private dialogsService: PuiConfirmDialogService,
     private snackbarService: PuiSnackbarService
-  ) { }
+  ) {
+    super()
+  }
 
   ngOnInit() {
-    this.prepareTableContent();
-    this.selected = -1;
+    this.getData()
   }
 
-  prepareTableContent() {
-    this.roleService.getAll().subscribe(result => {
-      this.allRoles = result;
-      this.dataSource = new MatTableDataSource(this.allRoles)
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+  getData(params: { [key: string]: any } = {}) {
+    params = Object.assign(params, this.requestParams())
+    this.roleService.getAllByPagination(params).subscribe(result => {
+      this.dataSource = new MatTableDataSource(result.listData)
+      this.totalData = result.totalItems
+      this.allRoles = result.listData
+      this.select = -1
+    })
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  pageEvent(event: any) {
+    this.offset = event.pageIndex
+    this.getData()
   }
 
   highlight(index, row) {
-    if (this.selected != index) {
-      this.selected = index;
+    if (this.select != index) {
+      this.select = index;
       this.role = row;
     } else {
-      this.selected = -1;
+      this.select = -1;
     }
   }
 
@@ -76,8 +75,7 @@ export class RoleListComponent implements OnInit {
           this.roleService.deleteRole(role).subscribe(
             result => {
               //this.allRoles.splice(this.allRoles.indexOf(role), 1);
-              this.selected = -1;// langsung create data untuk update isi tabel
-              this.prepareTableContent();
+              this.getData()
               this.snackbarService.showSnackBar("success", "Hapus role berhasil!");
             },
             error => {
@@ -113,8 +111,7 @@ export class RoleListComponent implements OnInit {
               return role;
           });
           */
-          this.selected = -1;
-          this.prepareTableContent();
+          this.getData()
           this.snackbarService.showSnackBar();
         });
       }
@@ -149,8 +146,7 @@ export class RoleListComponent implements OnInit {
               return role;
             });
             */
-            this.prepareTableContent(); // langsung create data supaya isi tabel terupdate
-            this.selected = -1;
+            this.getData()
             this.snackbarService.showSnackBar();
           }
         });
@@ -161,15 +157,5 @@ export class RoleListComponent implements OnInit {
   updateAllRolesInAuthService() {
     // update isi allRoles di authService, dilakukan setelah proses update, delete, atau add
     this.authService.allRoles = this.allRoles;
-  }
-
-
-  /**
-   * Toggle the sidebar
-   *
-   * @param name
-   */
-  toggleSidebar(name): void {
-    this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
 }

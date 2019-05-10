@@ -1,15 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { Role } from '../../models/role';
-import { AuthService } from 'app/shared/services/auth.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.scss'],
-  providers: [UserService]
+  styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
 
@@ -18,7 +15,6 @@ export class UserDetailComponent implements OnInit {
   selected: any[];
 
   constructor(
-    private authService: AuthService,
     public dialogRef: MatDialogRef<UserDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -26,8 +22,8 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
     this.allRoles = [];
     // get all
-    let userRoles = this.data.user.UserRoles;
-    this.allRoles = this.compareRoles(userRoles, this.authService.allRoles);
+    let userRoles = this.data.user.UserRoles; 
+    this.allRoles = this.compareRoles(userRoles, this.data.roles);
   }
 
   onNoClick(): void {

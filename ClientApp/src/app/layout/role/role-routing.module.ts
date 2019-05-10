@@ -5,13 +5,14 @@ import { RoleFormComponent } from './components/role-form/role-form.component';
 import { RoleDetailComponent } from './components/role-detail/role-detail.component';
 import { ActionRoleListComponent } from './components/action-role-list/action-role-list.component';
 import { ActionRoleFormComponent } from './components/action-role-form/action-role-form.component';
+import { PreventAdminAccess } from 'app/shared/services/PreventAdminAccess';
 
 
 const routes: Routes = [
   {
     path: "action",
     children: [
-      { path: "", component: ActionRoleListComponent },
+      { path: "", component: ActionRoleListComponent, canActivate: [PreventAdminAccess] },
       { path: "form", component: ActionRoleFormComponent }
     ],
     data: {
@@ -22,7 +23,7 @@ const routes: Routes = [
   {
     path: "",
     children: [
-      { path: "", component: RoleListComponent },
+      { path: "", component: RoleListComponent, canActivate: [PreventAdminAccess] },
       { path: "form", component: RoleFormComponent },
       { path: ":id", component: RoleDetailComponent }
     ],

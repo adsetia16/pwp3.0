@@ -1,61 +1,80 @@
-<div id="app-user-list" class="page-layout carded fullwidth inner-scroll">
+<div id="content-layout" class="page-layout carded fullwidth inner-scroll">
+  <div class="top-bg accent"></div>
   <div class="center">
 
-    <div class="toolbar px-24 py-8">
-
-      <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
-        <button mat-mini-fab (click)="onAddNewUserClick()" matTooltip="Add More User">
-          <mat-icon>add</mat-icon>
-        </button>
-
-        <div *ngIf="selected >= 0" class="toolbar-separator"></div>
-
-        <button *ngIf="selected >= 0" matTooltip="Assign Role" color="primary" mat-icon-button
-                (click)="onAssignRoleClick()">
-          <mat-icon>playlist_add_check</mat-icon>
-        </button>
+    <!--<div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between center">
+      <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          face
+        </mat-icon>
+        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          List User
+        </span>
       </div>
+    </div>-->
 
-      <div class="right" fxLayout="row" fxLayoutAlign="end center">
-        <div class="toolbar-separator"></div>
-        <wing-search (keyup)="applyFilter($event.target.value)" [clearText]="true" [showSearch]="showSearch"></wing-search>
+    <div class="content-card">
+      <div class="toolbar px-24 py-8">
+
+        <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+
+          <div fxHide.gt-md class="toolbar-separator"></div>
+
+          <button mat-mini-fab (click)="onAddNewUserClick()" matTooltip="Add More User">
+            <mat-icon>add</mat-icon>
+          </button>
+
+          <div *ngIf="select != -1" class="toolbar-separator"></div>
+
+          <button *ngIf="select != -1" matTooltip="Assign Role" color="primary" mat-icon-button
+                  (click)="onAssignRoleClick()">
+            <mat-icon>playlist_add_check</mat-icon>
+          </button>
+        </div>
+
+        <div class="right" fxLayout="row" fxLayoutAlign="end center">
+          <div class="toolbar-separator"></div>
+          <wing-search (search)="onSearch($event)" [clearText]="true" [showSearch]="showSearch"
+                       (click)="onClickSearch()"></wing-search>
+        </div>
       </div>
-    </div>
-    <div class="content p-24" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
-      <div class="mat-elevation">
-        <table mat-table [dataSource]="dataSource" matSort>
-          <ng-container matColumnDef="Gravatar">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Gravatar </th>
-            <td mat-cell *matCellDef="let element">
-              <div class="gravatar">
-                <img src="{{element.Gravatar}}" alt="gravatar">
-              </div>
-            </td>
-          </ng-container>
+      <div class="content">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" fusePerfectScrollbar>
+            <ng-container matColumnDef="Gravatar">
+              <th mat-header-cell *matHeaderCellDef> Gravatar </th>
+              <td mat-cell *matCellDef="let element">
+                <div class="gravatar">
+                  <img src="{{element.Gravatar}}" alt="gravatar">
+                </div>
+              </td>
+            </ng-container>
 
-          <ng-container matColumnDef="Nama">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nama </th>
-            <td mat-cell *matCellDef="let element"> {{element.Nama}} </td>
-          </ng-container>
+            <ng-container matColumnDef="Nama">
+              <th mat-header-cell *matHeaderCellDef> Nama </th>
+              <td mat-cell *matCellDef="let element"> {{element.Nama}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="Nip">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nip </th>
-            <td mat-cell *matCellDef="let element"> {{element.Nip}} </td>
-          </ng-container>
+            <ng-container matColumnDef="Nip">
+              <th mat-header-cell *matHeaderCellDef> Nip </th>
+              <td mat-cell *matCellDef="let element"> {{element.Nip}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="UserRoles">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> UserRoles </th>
-            <td mat-cell *matCellDef="let element"> {{element.UserRoles }} </td>
-          </ng-container>
+            <ng-container matColumnDef="UserRoles">
+              <th mat-header-cell *matHeaderCellDef> UserRoles </th>
+              <td mat-cell *matCellDef="let element"> {{element.UserRoles }} </td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" class="example-element-row"
-              [class.active]="i == selected"
-              (click)="highlight(i, row)"></tr>
-        </table>
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" class="example-element-row"
+                [class.active]="i == select" (click)="highlight(i, row)"></tr>
+          </table>
+        </div>
       </div>
+      <mat-paginator [length]="totalData"
+                     [pageSize]="limit"
+                     (page)="pageEvent($event)"></mat-paginator>
     </div>
   </div>
-
 </div>

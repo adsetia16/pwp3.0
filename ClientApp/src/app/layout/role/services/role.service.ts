@@ -12,6 +12,11 @@ export class RoleService {
     return this.http.get(url);
   }
 
+  getAllByPagination(params: { [key: string]: any } = {}): Observable<any> {
+    const url = "api/Role/pagination";
+    return this.http.get(url, { params: params });
+  }
+
   postRole(role: Role): Observable<any> {
     const url = "api/Role";
     return this.http.post(url, role);

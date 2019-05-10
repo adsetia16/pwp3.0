@@ -1,88 +1,89 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { AuthService } from 'app/shared/services/auth.service';
 import { Router } from '@angular/router';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { UserFormComponent } from '../user-form/user-form.component';
-import { Pagination } from 'app/shared/models/pagination';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { PuiSnackbarService } from 'app/shared/pusintek-ui/components/pui-snackbar/pui-snackbar.service';
-import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
+import { RoleService } from 'app/layout/role/services/role.service';
+import { Role } from '../../models/role';
+import { Pagination } from 'app/shared/models/pagination';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
-  providers: [UserService],
+  providers: [UserService, RoleService],
   animations: fuseAnimations,
   encapsulation: ViewEncapsulation.None
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent extends Pagination implements OnInit {
 
+  select: number
   users: User[];
-  selected: number
   user: User;
   displayedColumns: string[] = ['Gravatar', 'Nama', 'Nip', 'UserRoles'];
-  dataSource: any
+  dataSource: any;
+  allRoles: Role[];
 
   @ViewChild("gravatar") gravatarTpl: TemplateRef<any>;
-  //@ViewChild(DatatableComponent) table: DatatableComponent;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private _fuseSidebarService: FuseSidebarService,
     private userService: UserService,
-    private authService: AuthService,
-    private router: Router,
+    private roleService: RoleService,
     public dialog: MatDialog,
     private snackbarService: PuiSnackbarService,
-  ) {}
+  ) {
+    super()
+  }
 
   /** Called by Angular after user-list component initialized */
   ngOnInit() {
-    this.prepareTableContent();
-    this.selected = -1;
+    this.getData()
+    this.roleService.getAll().subscribe(result => {
+      this.allRoles = result
+    })
   }
 
-  prepareTableContent() {
-    this.userService.getUsers().subscribe(result => {
-      this.users = result;
-      this.dataSource = new MatTableDataSource(this.users)
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+  getData(params: { [key: string]: any } = {}) {
+    params = Object.assign(params, this.requestParams())
+    this.userService.getUsers(params).subscribe(result => {
+      this.dataSource = new MatTableDataSource(result.listData)
+      this.totalData = result.totalItems
+      this.users = result.listData
+      this.select = -1
+    })
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  pageEvent(event: any) {
+    this.offset = event.pageIndex
+    this.getData()
   }
 
   highlight(index, row) {
-    if (this.selected != index) {
-      this.selected = index;
+    if (this.select != index) {
+      this.select = index;
       this.user = row;
     } else {
-      this.selected = -1;
+      this.select = -1;
     }
   }
 
   onAddNewUserClick() {
     let dialogRef = this.dialog.open(UserFormComponent, {
       data: {
-        roles: this.authService.allRoles
+        roles: this.allRoles
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
         this.userService.postNewUser(result).subscribe(result => {
+          this.getData()
+          this.snackbarService.showSnackBar("success", "Tambah User berhasil!");
           this.userService.getUsers().subscribe(result => {
-            this.selected = -1;
-            this.prepareTableContent();
-            this.snackbarService.showSnackBar("success", "Tambah User berhasil!");
           });
         });
       }
@@ -92,7 +93,8 @@ export class UserListComponent implements OnInit {
   onAssignRoleClick() {
     let dialogRef = this.dialog.open(UserDetailComponent, {
       data: {
-        user: this.user
+        user: this.user,
+        roles: this.allRoles
       }
     });
 
@@ -106,24 +108,12 @@ export class UserListComponent implements OnInit {
             }
             return x;
           });
-          this.selected = -1;
-          this.prepareTableContent();
+          this.getData()
           this.snackbarService.showSnackBar();
         });
       }
       //this.animal = result;
     });
-
-  }
-
-
-  /**
-   * Toggle the sidebar
-   *
-   * @param name
-   */
-  toggleSidebar(name): void {
-    this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
 
 }

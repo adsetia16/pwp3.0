@@ -1,53 +1,63 @@
 <div id="content-layout" class="page-layout carded fullwidth inner-scroll">
   <div class="center">
     <!-- CONTENT CARD -->
+    <div class="content-card">
       <div class="toolbar px-24 py-8">
 
-        <div fxFlex="row" fxLayoutAlign="start center">
-             <button matTooltip="Add Root" mat-mini-fab color="accent" (click)="onAddClick()">
+        <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+      
+
+          <div fxHide.gt-md class="toolbar-separator"></div>
+
+          <button matTooltip="Add Root" mat-mini-fab color="accent" (click)="onAddClick()">
             <mat-icon>add</mat-icon>
           </button>
 
           <div *ngIf="selectedMenu != null" class="toolbar-separator">
           </div>
-          <button *ngIf="selectedMenu != null && !isItemSelected" matTooltip="Add Child" mat-icon-button color="accent" (click)="onChildAddClick()">
+          <button *ngIf="selectedMenu != null && !isItemSelected" matTooltip="Add Child" mat-icon-button color="accent"
+            (click)="onChildAddClick()">
             <mat-icon>playlist_add</mat-icon>
           </button>
-          <button *ngIf="selectedMenu != null" matTooltip="Delete" mat-icon-button color="warn" (click)="onDeleteClick()">
+          <button *ngIf="selectedMenu != null" matTooltip="Delete" mat-icon-button color="warn"
+            (click)="onDeleteClick()">
             <mat-icon>delete</mat-icon>
           </button>
-          <button *ngIf="selectedMenu != null" matTooltip="Update" mat-icon-button color="primary" (click)="onEditClick()">
+          <button *ngIf="selectedMenu != null" matTooltip="Update" mat-icon-button color="primary"
+            (click)="onEditClick()">
             <mat-icon>mode_edit</mat-icon>
           </button>
         </div>
 
         <div class="right" fxLayout="row" fxLayoutAlign="end center">
           <div class="toolbar-separator"></div>
-          <wing-search (search)="updateFilter($event)" [clearText]="true" [showSearch]="showSearch" (click)="onClickSearch()"></wing-search>
+          <wing-search (search)="updateFilter($event)" [clearText]="true" [showSearch]="showSearch"
+            (click)="onClickSearch()"></wing-search>
         </div>
       </div>
 
-      <div class="content p-24" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
-        <div class="mat-elevation">
-          <p-treeTable [value]="treeMenus" [columns]="columns" selectionMode="single" [(selection)]="selectedMenu" [metaKeySelection]="false" (onNodeSelect)="onNodeSelect($event)">
-            <ng-template pTemplate="header" let-columns>
-              <tr>
-                <th *ngFor="let col of columns">
-                  {{col.header}}
-                </th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-              <tr [ttSelectableRow]="rowNode">
-                <td *ngFor="let col of columns; let i = index">
-                  <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                  {{rowData[col.field]}}
-                </td>
-              </tr>
-            </ng-template>
-          </p-treeTable>
-        </div>
+      <div class="content">
+        <p-treeTable [value]="treeMenus" [columns]="columns" selectionMode="single" [(selection)]="selectedMenu"
+          [metaKeySelection]="false" (onNodeSelect)="onNodeSelect($event)">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttSelectableRow]="rowNode">
+              <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-treeTable>
       </div>
+
     </div>
     <!-- / CONTENT CARD -->
+  </div>
 </div>

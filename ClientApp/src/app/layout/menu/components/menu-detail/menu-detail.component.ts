@@ -38,7 +38,7 @@ export class MenuDetailComponent implements OnInit {
             .subscribe(result => (this.menuItemModel = result));
 
         // get all menus
-        this.menuService.getAllMenus().subscribe(result => {
+      this.menuService.getAllMenus().subscribe(result => {
             // result -> MenuItemModel[]
             // ambil yang memenuhi parameter untuk menjadi parent name
             this.allMenus = result.filter((item: MenuItemModel) => item.Type == "group" || item.Type == "collapse");

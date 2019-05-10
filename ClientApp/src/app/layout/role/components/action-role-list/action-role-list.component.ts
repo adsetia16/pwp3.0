@@ -4,10 +4,10 @@ import { MatDialog, MatSnackBar, MatPaginator, MatSort, MatTableDataSource } fro
 import { ActionRoleFormComponent } from "../action-role-form/action-role-form.component";
 import { RoleAction } from "../../../../shared/models/action-model";
 import { ResultModel } from "../../../../shared/models/result-model";
+import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { PuiSnackbarService } from "../../../../shared/pusintek-ui/components/pui-snackbar/pui-snackbar.service";
 import { fuseAnimations } from "@fuse/animations";
 import { Pagination } from "app/shared/models/pagination";
-import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 
 @Component({
   selector: "app-action-role-list",
@@ -16,53 +16,51 @@ import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
   providers: [ActionRoleService],
   animations: fuseAnimations
 })
-export class ActionRoleListComponent implements OnInit {
+export class ActionRoleListComponent extends Pagination implements OnInit {
   constructor(
-    private _fuseSidebarService: FuseSidebarService,
     private arService: ActionRoleService,
     public dialog: MatDialog,
     private snackbarService: PuiSnackbarService
-  ) {}
+  ) {
+    super()
+  }
 
   roles: any[] = [];
   ctrActions: any[];
-  selected: number
+  select: number
   role: any
   displayedColumns: string[] = ['Role', 'Action'];
   dataSource: any
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   ngOnInit() {
-    this.prepareTableContent();
-    this.selected = -1;
+    this.getData()
   }
 
-  prepareTableContent() {
-    this.arService.getAll().subscribe(result => {
-      this.roles = result;
-      this.dataSource = new MatTableDataSource(this.roles)
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+  getData(params: { [key: string]: any } = {}) {
+    params = Object.assign(params, this.requestParams())
+    this.arService.getAllByPagination(params).subscribe(result => {
+      this.dataSource = new MatTableDataSource(result.listData)
+      this.totalData = result.totalItems
+      this.roles = result.listData
+      this.select = -1
+    })
 
     this.arService.getSystemController().subscribe(result => {
-      this.ctrActions = result;
-    });
-
+      this.ctrActions = result
+    })
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  pageEvent(event: any) {
+    this.offset = event.pageIndex
+    this.getData()
   }
 
   highlight(index, row) {
-    if (this.selected != index) {
-      this.selected = index;
+    if (this.select != index) {
+      this.select = index;
       this.role = row;
     } else {
-      this.selected = -1;
+      this.select = -1;
     }
   }
 
@@ -97,8 +95,7 @@ export class ActionRoleListComponent implements OnInit {
 
               return roleAction;
             });
-            this.prepareTableContent();
-            this.selected = -1;
+            this.getData()
             this.snackbarService.showSnackBar("success", "Perubahan action berhasil!");
           }, // on success
           error => { }, // on error
@@ -106,14 +103,5 @@ export class ActionRoleListComponent implements OnInit {
         );
       }
     });
-  }
-
-  /**
- * Toggle the sidebar
- *
- * @param name
- */
-  toggleSidebar(name): void {
-    this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
 }

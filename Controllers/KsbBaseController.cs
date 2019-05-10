@@ -19,13 +19,16 @@ namespace pwp3._0.Controllers
 
         public IConfiguration Configuration { get; }
         private string ksbUrl;
-        private string sSOUrl;
+		private string ksbDevUrl;
+		private string sSOUrl;
 
-        public KsbBaseController(IConfiguration configuration)
+
+		public KsbBaseController(IConfiguration configuration)
         {
             Configuration = configuration;
             ksbUrl = Configuration["KSB:URL"];
-            sSOUrl = Configuration["Authentication:KemenkeuID:SSOUrl"];
+			ksbDevUrl = Configuration["KSB:URLDEV"];
+			sSOUrl = Configuration["Authentication:KemenkeuID:SSOUrl"];
         }
 
         #region <----- Helper ----->
@@ -117,7 +120,28 @@ namespace pwp3._0.Controllers
             }
         }
 
-        private async Task GetAccessToken()
+		protected async Task<string> GetDevStringAsync(string uri)
+		{
+			// get access token
+			await GetAccessToken();
+			using (HttpClient client = new HttpClient())
+			{
+				try
+				{
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+					var response = await client.GetStringAsync(ksbDevUrl + uri);
+					return response;
+				}
+				catch (Exception e)
+				{
+					return e.StackTrace;
+				}
+			}
+		}
+
+
+		private async Task GetAccessToken()
         {
             var accTokenClaim = User.Claims.FirstOrDefault(x => x.Type.Equals("accessToken"));
             if(accTokenClaim != null)

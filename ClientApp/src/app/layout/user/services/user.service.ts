@@ -1,4 +1,3 @@
-
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { User, UserInfo } from "../models/user";
@@ -10,10 +9,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<User[]> {
+  getUsers(params: { [key: string]: any } = {}): Observable<any> {
     const url = `api/UserRole`;
 
-    return this.http.get<User[]>(url);
+    return this.http.get<any>(url, { params: params });
   }
 
   getUserByPegawaiId(id: string = ''): Observable<User> {
@@ -26,10 +25,10 @@ export class UserService {
     return this.http.post<User>(url, user);
   }
 
-  getUserInfo(): Observable<User> {
-    const url = `Index/UserInfo`;
-    return this.http.get<User>(url);
-  }
+  // getUserInfo(): Observable<User> {
+  //   const url = `Index/UserInfo`;
+  //   return this.http.get<User>(url);
+  // }
 
   getPegawaiByNip(nip: string): Observable<any> {
     const url = `api/Pegawai/${nip}`;
