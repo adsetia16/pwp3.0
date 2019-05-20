@@ -35,17 +35,6 @@
 
   <div class="navbar-content">
     <fuse-navigation class="material2" layout="vertical"></fuse-navigation>
-    <div class="account" fxLayout="column">
-      <mat-form-field floatLabel="never" id="matForm" class="temp" style="max-width: 1000px !important">
-        <div class="temp">
-          <mat-select style="max-width: 1000px !important" class="account-selection" placeholder="Ganti Role" matTooltip="{{Currentrole}}" [ngModel]="Currentrole">
-            <mat-option *ngFor="let i of roles" [value]="i" (click)="change(i)">
-              {{ i }}
-            </mat-option>
-          </mat-select>
-        </div>
-      </mat-form-field>
-    </div>
   </div>
 
 </div>

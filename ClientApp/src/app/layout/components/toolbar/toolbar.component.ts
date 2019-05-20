@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 
@@ -11,12 +11,18 @@ import { navigation } from 'app/navigation/navigation';
 import { AuthService } from 'app/shared/services/auth.service';
 import { UserService } from 'app/layout/user/services/user.service';
 import { User } from 'app/layout/user/models/user';
+import { RoleService } from '../../role/services/role.service';
+import { MenuService } from '../../menu/services/menu.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { MenuItemModel } from '../../../shared/models/menu-item';
+import { isNullOrUndefined } from '@swimlane/ngx-datatable/release/utils';
 
 @Component({
   selector: 'toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
-  providers: [UserService],
+  providers: [UserService, RoleService, MenuService],
   encapsulation: ViewEncapsulation.None
 })
 
@@ -29,6 +35,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   selectedLanguage: any;
   userStatusOptions: any[];
   userInfo: User = new User();
+  navMenus: MenuItemModel[] = [];
+  roles: any //RoleUnit[] = []
+  Currentrole: any //RoleUnit = new RoleUnit()
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -45,7 +54,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private _fuseSidebarService: FuseSidebarService,
     private _translateService: TranslateService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private roleService: RoleService,
+    private menuService: MenuService,
+    private _router: Router,
+    private snackBar: MatSnackBar,
   ) {
     this.authService._currentUser.subscribe((resp) => {
       this.userInfo = resp
@@ -114,6 +127,33 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     //});
     //this.userInfo = JSON.parse(sessionStorage.getItem('CurrentUser'));
 
+    this.authService._currentUser.subscribe((resp) => {
+      this.menuService.getMenusByRole(resp.Roles).subscribe(result => {
+        this.navMenus = result;
+      });
+
+      if (!isNullOrUndefined(resp.UserRoles)) {
+        this.roles = resp.UserRoles.sort()
+        this.Currentrole = resp.Roles
+      }
+    })
+    this.roleService.getAll().subscribe(result => { this.authService.allRoles = result; });
+
+    this._router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this._unsubscribeAll)
+      )
+      .subscribe(() => {
+        if (this._fuseSidebarService.getSidebar('navbar')) {
+          this._fuseSidebarService.getSidebar('navbar').close();
+        }
+      }
+    );
+
+
+
+
     // Subscribe to the config changes
     this._fuseConfigService.config
       .pipe(takeUntil(this._unsubscribeAll))
@@ -126,6 +166,22 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     // Set the selected language from default languages
     this.selectedLanguage = _.find(this.languages, { 'id': this._translateService.currentLang });
   }
+
+
+
+  change(item: any) {
+    this.authService.changeUserInfo(item).subscribe(resp => {
+      this.snackBar.open('Ganti role berhasil', 'Tutup', {
+        duration: 2000,
+        verticalPosition: 'bottom'
+      })
+      setTimeout(function () {
+        document.getElementById('matForm').classList.remove('mat-focused')
+      }, 100)
+      this._router.navigateByUrl('/home')
+    })
+  }
+
 
   /**
    * On destroy

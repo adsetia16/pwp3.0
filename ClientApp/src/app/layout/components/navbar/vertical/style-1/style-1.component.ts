@@ -149,20 +149,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
         this.navigation = this._fuseNavigationService.getCurrentNavigation();
       });
   }
-
-  change(item: any) {
-    this.authService.changeUserInfo(item).subscribe(resp => {
-      this.snackBar.open('Ganti role berhasil', 'Tutup', {
-        duration: 2000,
-        verticalPosition: 'top'
-      })
-      setTimeout(function () {
-        document.getElementById('matForm').classList.remove('mat-focused')
-      }, 100)
-      this._router.navigateByUrl('/home')
-    })
-  }
-
+  
   ngOnDestroy(): void {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
